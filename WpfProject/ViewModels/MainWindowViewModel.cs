@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,65 +12,20 @@ namespace WpfProject.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private readonly string _defaultName = "Podaj imię";
-        private readonly string _defaultSurName = "Podaj nazwisko";
-        private string _name, _surName, _result;
+        private readonly IRegionManager _regionManager;
 
-        public ICommand ValidateCommand { get; set; }
+        public DelegateCommand<string> NavigateCommand { get; set; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IRegionManager regionManager)
         {
-            ValidateCommand = new DelegateCommand(ValidateAction);
+            _regionManager = regionManager;
+
+            NavigateCommand = new DelegateCommand<string>(Navigate);
         }
 
-        public string Name
+        private void Navigate(string uri)
         {
-            get
-            {
-                return !string.IsNullOrEmpty(_name) ? _name : _defaultName;
-            }
-            set
-            {
-                _name = value == string.Empty ? _defaultName : value;
-                OnPropertyChanged(() => Name);
-            }
-        }
-
-        public string Surname
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(_surName) ? _surName : _defaultSurName;
-            }
-            set
-            {
-                _surName = value == string.Empty ? _defaultSurName : value;
-                OnPropertyChanged(() => Surname);
-            }
-        }
-
-        public string Result
-        {
-            get
-            {
-                return _result;
-            }
-            set
-            {
-                _result = value;
-                OnPropertyChanged(() => Result);
-            }
-        }
-
-        private void ValidateAction()
-        {
-            bool validationResult = Name != _defaultName && Surname != _defaultSurName;
-            if(!validationResult)
-            {
-                Result = "Błąd";
-                return;
-            }
-            Result = "OK";
+            _regionManager.RequestNavigate("ContentRegion", uri);
         }
     }
 }

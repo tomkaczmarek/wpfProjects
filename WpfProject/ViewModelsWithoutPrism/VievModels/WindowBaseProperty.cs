@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace WpfProject.ViewModelsWithoutPrism.VievModels
 {
@@ -15,8 +16,9 @@ namespace WpfProject.ViewModelsWithoutPrism.VievModels
 
         private void PropertyChange(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
         protected string GetPropertyName<TProperty>(Expression<Func<TProperty>> property)

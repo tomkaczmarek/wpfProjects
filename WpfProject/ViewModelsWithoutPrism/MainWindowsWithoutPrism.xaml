@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfProject.ViewModelsWithoutPrism"
         xmlns:viewModel ="clr-namespace:WpfProject.ViewModelsWithoutPrism.VievModels"
         mc:Ignorable="d"
-        Title="MainWindowsWithoutPrism" Height="300" Width="300">
+        Title="Okno główne" Height="400" Width="600">
     <Window.DataContext>
         <viewModel:MainWindowViemModel/>
     </Window.DataContext>
@@ -23,5 +23,7 @@
         </Grid.RowDefinitions>
         <TextBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Text="{Binding Name2, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="70" Content="Dodaj" Command="{Binding ButtonCommand, Mode=TwoWay}"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
     </Grid>
 </Window>

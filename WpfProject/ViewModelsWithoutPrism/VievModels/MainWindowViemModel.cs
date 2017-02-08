@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace WpfProject.ViewModelsWithoutPrism.VievModels
 {
@@ -12,6 +13,9 @@ namespace WpfProject.ViewModelsWithoutPrism.VievModels
     {
         private string _name;
         private string _name2;
+        private int _result;
+
+        public ICommand ButtonCommand { get; set; }
 
         public string Name
         {
@@ -30,6 +34,16 @@ namespace WpfProject.ViewModelsWithoutPrism.VievModels
             {
                 _name2 = value;
                 OnPropertyChangedCallerMember();
+            }
+        }
+
+        public int Result
+        {
+            get { return _result; }
+            set
+            {
+                _result = value;
+                OnPropertyChanged(() => Result);
             }
         }
     }
